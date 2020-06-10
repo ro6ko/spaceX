@@ -1,0 +1,17 @@
+<div *ngIf="dragon" class="details">
+    <h2>{{dragon.name | uppercase}} Details</h2>
+    <div class="mat-elevation-z8">
+        <div><span>Id: </span>{{dragon.id}}</div>
+        <div><span>Type: </span>{{dragon.type}}</div>
+        <div><span>Crew Capacity: </span>{{dragon.crew_capacity}}</div>
+        <div><span>Sidewall Angle Deg: </span>{{dragon.sidewall_angle_deg}}</div>
+        <div><span>Orbit Duration Yr: </span>{{dragon.orbit_duration_yr}}</div>
+        <div><span>Dry Mass: </span>{{dragon.dry_mass_lb}}lb ({{dragon.dry_mass_kg}}kg)</div>
+        <div><span>First Flight: </span>{{dragon.first_flight | date: 'shortDate'}}</div>
+        <div><span>Launch Payload Mass: </span>{{dragon.launch_payload_mass.lb}}lb ({{dragon.launch_payload_mass.kg}}kg)</div>
+        <div><span>Return Payload Mass: </span>{{dragon.return_payload_mass.lb}}lb ({{dragon.return_payload_mass.kg}}kg)</div>
+        
+
+        <button mat-raised-button (click)="goBack()">go back</button>
+    </div>
+</div>

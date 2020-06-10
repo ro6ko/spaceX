@@ -1,8 +1,10 @@
-
-<div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a [routerLink]="'/capsule-list'">Capsules</a>
-  <a [routerLink]="'/'">Contact</a>
-  <a [routerLink]="'/'">About</a>
+<div class="api">
+  <div class="topnav">
+    <a class="active" [routerLink]="'/capsule-list'">Capsules</a>
+    <a [routerLink]="'/dragon-list'">Dragons</a>
+    <a [routerLink]="'/'">About</a>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-<router-outlet></router-outlet>

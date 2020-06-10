@@ -1,19 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 import { Capsule } from '../core/models/capsule.model';
 import { CapsuleService } from '../core/services/capsule.service';
 
 @Component({
-  selector: 'app-capsule-list',
-  templateUrl: './capsule-list.component.html',
-  styleUrls: ['./capsule-list.component.scss']
+  selector: 'app-capsule-upcoming',
+  templateUrl: './capsule-upcoming.component.html',
+  styleUrls: ['./capsule-upcoming.component.scss']
 })
-export class CapsuleListComponent implements OnInit {
-  allCapsules: Capsule[] = [];
+export class CapsuleUpcomingComponent implements OnInit {
+  upcomingCapsules: Capsule[] = [];
   displayedColumns: string[] = [
     'capsule_serial',
     'capsule_id',
@@ -25,10 +25,10 @@ export class CapsuleListComponent implements OnInit {
     'details',
     'reuse_count'
   ];
+  
+  dataSource = new MatTableDataSource(this.upcomingCapsules);
 
-  dataSource = new MatTableDataSource(this.allCapsules);
-
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
     private router: Router,
@@ -36,17 +36,15 @@ export class CapsuleListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllCapsules();
+    this.getUpcomingCapsules();
   }
 
-  getAllCapsules(): void {
-    this.capsuleService.getAllCapsules().subscribe(
+  getUpcomingCapsules(): void {
+    this.capsuleService.getUpcomingCapsules().subscribe(
       res => {
-        this.allCapsules = res;
-        console.log("capsuleService.getCapsules: ", res)
-        this.dataSource = new MatTableDataSource(this.allCapsules);
+        this.upcomingCapsules = res;
+        this.dataSource = new MatTableDataSource(this.upcomingCapsules);
         this.dataSource.sort = this.sort;
-        console.log("dataSource: ", this.dataSource)
       }
     )
   }

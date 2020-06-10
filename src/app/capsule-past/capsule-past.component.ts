@@ -1,19 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 import { Capsule } from '../core/models/capsule.model';
 import { CapsuleService } from '../core/services/capsule.service';
 
 @Component({
-  selector: 'app-capsule-list',
-  templateUrl: './capsule-list.component.html',
-  styleUrls: ['./capsule-list.component.scss']
+  selector: 'app-capsule-past',
+  templateUrl: './capsule-past.component.html',
+  styleUrls: ['./capsule-past.component.scss']
 })
-export class CapsuleListComponent implements OnInit {
-  allCapsules: Capsule[] = [];
+export class CapsulePastComponent implements OnInit {
+  pastCapsules: Capsule[] = [];
   displayedColumns: string[] = [
     'capsule_serial',
     'capsule_id',
@@ -25,10 +25,10 @@ export class CapsuleListComponent implements OnInit {
     'details',
     'reuse_count'
   ];
+  
+  dataSource = new MatTableDataSource(this.pastCapsules);
 
-  dataSource = new MatTableDataSource(this.allCapsules);
-
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
     private router: Router,
@@ -36,17 +36,15 @@ export class CapsuleListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllCapsules();
+    this.getPastCapsules();
   }
 
-  getAllCapsules(): void {
-    this.capsuleService.getAllCapsules().subscribe(
+  getPastCapsules(): void {
+    this.capsuleService.getPastCapsules().subscribe(
       res => {
-        this.allCapsules = res;
-        console.log("capsuleService.getCapsules: ", res)
-        this.dataSource = new MatTableDataSource(this.allCapsules);
+        this.pastCapsules = res;
+        this.dataSource = new MatTableDataSource(this.pastCapsules);
         this.dataSource.sort = this.sort;
-        console.log("dataSource: ", this.dataSource)
       }
     )
   }

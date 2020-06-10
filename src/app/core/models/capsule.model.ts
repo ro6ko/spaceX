@@ -4,12 +4,6 @@ export class Capsule {
     status: string;
     original_launch: Date;
     original_launch_unix: number;
-    // missions: [
-    //   {
-    //     name: COTS 1,
-    //     flight: 7
-    //   }
-    // ],
     missions: any;
     landings: number;
     type: string;

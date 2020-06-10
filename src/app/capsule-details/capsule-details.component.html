@@ -1,0 +1,14 @@
+<div *ngIf="capsule" class="details">
+    <h2>{{capsule.capsule_id | uppercase}} Details</h2>
+    <div class="mat-elevation-z8">
+        <div><span>No: </span>{{capsule.capsule_serial}}</div>
+        <div><span>Status: </span>{{capsule.status}}</div>
+        <div><span>Launch: </span>{{capsule.original_launch | date: 'shortDate'}}</div>
+        <div><span>Launch unix: </span>{{capsule.original_launch_unix}}</div>
+        <div><span>Landings: </span>{{capsule.landings}}</div>
+        <div><span>Type: </span>{{capsule.type}}</div>
+        <div><span>Details: </span>{{capsule.details}}</div>
+        <div><span>Reuse count: </span>{{capsule.reuse_count}}</div>
+        <button mat-raised-button (click)="goBack()">go back</button>
+    </div>
+</div>

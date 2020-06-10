@@ -1,14 +1,11 @@
 import { Routes } from '@angular/router';
 
-// import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { CapsuleListComponent } from './capsule-list/capsule-list.component';
+import { CapsuleDetailsComponent } from './capsule-details/capsule-details.component';
+import { DragonsListComponent } from './dragon-list/dragon-list.component';
+import { DragonDetailsComponent } from './dragon-details/dragon-details.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent
-  },
   {
     path: 'capsule-list',
     component: CapsuleListComponent,
@@ -16,20 +13,29 @@ export const routes: Routes = [
       title: "Capsule List"
     }
   },
-  // {
-  //   path: 'register',
-  //   loadChildren:  () => import('./register-form/register-form.module').then(m => m.RegisterFormModule)
-  // },
-  // {
-  //   path: 'feedback',
-  //   loadChildren:  () => import('./feedback/feedback.module').then(m => m.FeedbackModule)
-  // },
-  // {
-  //   path: 'administration',
-  //   loadChildren:  () => import('./administration/administration.module').then(m => m.AdministrationModule)
-  // },
+  {
+    path: 'capsule-details/:id',
+    component: CapsuleDetailsComponent,
+    data: {
+      title: "Capsule Details"
+    }
+  },
+  {
+    path: 'dragon-list',
+    component: DragonsListComponent,
+    data: {
+      title: "Dragon List"
+    }
+  },
+  {
+    path: 'dragon-details/:id',
+    component: DragonDetailsComponent,
+    data: {
+      title: "Dragon Details"
+    }
+  },
   {
     path: '**',
-    redirectTo: '/'
+    redirectTo: '/capsule-list'
   }
 ];
