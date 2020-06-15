@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+
+import { Subscription } from 'rxjs';
 
 import { Dragon } from '../core/models/dragon.model';
 import { DragonService } from '../core/services/dragon.service';
@@ -12,7 +13,8 @@ import { DragonService } from '../core/services/dragon.service';
   templateUrl: './dragon-list.component.html',
   styleUrls: ['./dragon-list.component.scss']
 })
-export class DragonsListComponent implements OnInit {
+export class DragonsListComponent implements OnInit, OnDestroy {
+  subscription: Subscription
   allDragons: Dragon[] = [];
   displayedColumns: string[] = [
     'id',
@@ -35,8 +37,12 @@ export class DragonsListComponent implements OnInit {
     this.getAllDragons();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   getAllDragons(): void {
-    this.dragonService.getAllDragons().subscribe(
+    this.subscription = this.dragonService.getAllDragons().subscribe(
       res => {
         this.allDragons = res;
         console.log("dragonService.getAllDragons: ", res)

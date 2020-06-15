@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { Subscription } from 'rxjs';
 
 import { Capsule } from '../core/models/capsule.model';
 import { CapsuleService } from '../core/services/capsule.service';
@@ -12,7 +13,8 @@ import { CapsuleService } from '../core/services/capsule.service';
   templateUrl: './capsule-past.component.html',
   styleUrls: ['./capsule-past.component.scss']
 })
-export class CapsulePastComponent implements OnInit {
+export class CapsulePastComponent implements OnInit, OnDestroy {
+  subscription: Subscription
   pastCapsules: Capsule[] = [];
   displayedColumns: string[] = [
     'capsule_serial',
@@ -25,10 +27,10 @@ export class CapsulePastComponent implements OnInit {
     'details',
     'reuse_count'
   ];
-  
+
   dataSource = new MatTableDataSource(this.pastCapsules);
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private router: Router,
@@ -39,8 +41,12 @@ export class CapsulePastComponent implements OnInit {
     this.getPastCapsules();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   getPastCapsules(): void {
-    this.capsuleService.getPastCapsules().subscribe(
+    this.subscription = this.capsuleService.getPastCapsules().subscribe(
       res => {
         this.pastCapsules = res;
         this.dataSource = new MatTableDataSource(this.pastCapsules);
